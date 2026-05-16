@@ -1,0 +1,1504 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>九宮門生入門意願登記表</title>
+  <meta name="description" content="九宮門生入門意願登記表數位版。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f3ec;
+      --paper-strong: #fffaf2;
+      --ink: #252525;
+      --muted: #66635f;
+      --line: #ddd3c2;
+      --navy: #25156c;
+      --navy-soft: #ece9f6;
+      --red: #c82323;
+      --red-dark: #9f1717;
+      --gold: #b58b43;
+      --white: #ffffff;
+      --shadow: 0 24px 70px rgba(30, 24, 18, 0.13);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Serif TC", "Microsoft JhengHei", serif;
+      background:
+        linear-gradient(135deg, rgba(37, 21, 108, 0.06), transparent 32rem),
+        linear-gradient(315deg, rgba(200, 35, 35, 0.05), transparent 28rem),
+        var(--paper);
+      line-height: 1.7;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: var(--navy);
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 32px 20px 56px;
+    }
+
+    .shell {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 28px;
+      align-items: center;
+      padding: 34px;
+      border: 1px solid rgba(37, 21, 108, 0.16);
+      border-radius: var(--radius);
+      background: rgba(255, 250, 242, 0.9);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      inset: 18px;
+      border: 1px solid rgba(181, 139, 67, 0.28);
+      border-radius: 4px;
+    }
+
+    .hero::after {
+      right: -44px;
+      bottom: -72px;
+      width: 260px;
+      height: 260px;
+      background-image:
+        linear-gradient(var(--red) 0 0),
+        linear-gradient(var(--red) 0 0),
+        linear-gradient(var(--red) 0 0),
+        linear-gradient(var(--red) 0 0);
+      background-size: 100% 4px, 100% 4px, 4px 100%, 4px 100%;
+      background-position: 0 33%, 0 66%, 33% 0, 66% 0;
+      background-repeat: no-repeat;
+      opacity: 0.16;
+      transform: rotate(-6deg);
+    }
+
+    .brand-mark {
+      position: relative;
+      z-index: 1;
+      width: 148px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      background: var(--white);
+      border: 1px solid rgba(37, 21, 108, 0.12);
+      border-radius: 4px;
+      padding: 16px;
+    }
+
+    .brand-mark img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--gold);
+      font-family: "Noto Serif Display", "Noto Serif TC", serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.14;
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 8px 14px;
+      border: 1px solid rgba(37, 21, 108, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: #3f3b37;
+      font-size: 0.94rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 26px;
+      margin-top: 26px;
+      align-items: start;
+    }
+
+    .progress-panel,
+    .form-panel,
+    .notice {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 250, 242, 0.92);
+      box-shadow: 0 16px 42px rgba(30, 24, 18, 0.08);
+    }
+
+    .progress-panel {
+      position: sticky;
+      top: 20px;
+      padding: 22px;
+    }
+
+    .progress-title {
+      margin: 0 0 16px;
+      color: var(--navy);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      color: var(--muted);
+    }
+
+    .step.is-current {
+      border-color: rgba(37, 21, 108, 0.18);
+      background: var(--navy-soft);
+      color: var(--ink);
+    }
+
+    .step.is-complete .step-number {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .step[hidden] {
+      display: none;
+    }
+
+    .step-number {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(37, 21, 108, 0.2);
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--navy);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .step-name {
+      display: block;
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+
+    .progress-note {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .notice {
+      margin-bottom: 18px;
+      padding: 18px 20px;
+      color: #49433c;
+    }
+
+    .notice strong {
+      color: var(--navy);
+    }
+
+    .form-panel {
+      overflow: hidden;
+    }
+
+    form {
+      margin: 0;
+    }
+
+    .form-section {
+      display: none;
+      padding: 32px;
+    }
+
+    .form-section.is-active {
+      display: block;
+    }
+
+    .section-kicker {
+      margin: 0 0 6px;
+      color: var(--gold);
+      font-family: "Noto Serif Display", "Noto Serif TC", serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .section-intro {
+      margin: 12px 0 24px;
+      color: var(--muted);
+    }
+
+    .fields {
+      display: grid;
+      gap: 22px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label,
+    legend {
+      color: #1f1f1f;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .required {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .help {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid #cfc4b3;
+      border-radius: 6px;
+      background: var(--white);
+      color: var(--ink);
+      padding: 11px 12px;
+      transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    textarea {
+      min-height: 132px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus-visible {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 0 4px rgba(37, 21, 108, 0.14);
+    }
+
+    .choice-group {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .choice-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .choice {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      min-height: 46px;
+      gap: 8px;
+      padding: 10px 13px;
+      border: 1px solid #d5cab9;
+      border-radius: 999px;
+      background: var(--white);
+      color: #33302d;
+      font-weight: 500;
+    }
+
+    .choice input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--red);
+    }
+
+    .other-line {
+      display: none;
+      margin-top: 8px;
+    }
+
+    .other-line.is-visible {
+      display: block;
+    }
+
+    .conditional {
+      display: none;
+    }
+
+    .conditional.is-visible {
+      display: grid;
+    }
+
+    .consent-box {
+      display: grid;
+      gap: 14px;
+      max-height: 320px;
+      overflow: auto;
+      padding: 18px;
+      border: 1px solid #d8cebd;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.72);
+      color: #4a453f;
+      font-size: 0.96rem;
+    }
+
+    .consent-box p,
+    .consent-box ol {
+      margin: 0;
+    }
+
+    .consent-box ol {
+      padding-left: 1.4rem;
+    }
+
+    .consent-checks {
+      display: grid;
+      gap: 12px;
+    }
+
+    .consent-item {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 14px;
+      border: 1px solid #d7ccbb;
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+
+    .consent-item input {
+      width: 20px;
+      height: 20px;
+      margin-top: 3px;
+      accent-color: var(--red);
+    }
+
+    .error {
+      display: none;
+      color: var(--red-dark);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .error.is-visible {
+      display: block;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 32px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      padding: 11px 20px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      background: var(--red);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(200, 35, 35, 0.22);
+    }
+
+    .button.primary:hover {
+      background: var(--red-dark);
+    }
+
+    .button.secondary {
+      background: var(--white);
+      color: var(--navy);
+      border-color: rgba(37, 21, 108, 0.22);
+    }
+
+    .button[disabled] {
+      cursor: not-allowed;
+      opacity: 0.62;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .status {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      font-weight: 700;
+    }
+
+    .status.is-visible {
+      display: block;
+    }
+
+    .status.info {
+      border-color: rgba(37, 21, 108, 0.18);
+      background: var(--navy-soft);
+      color: var(--navy);
+    }
+
+    .status.success {
+      border-color: rgba(30, 109, 65, 0.24);
+      background: #eef8f1;
+      color: #1e6d41;
+    }
+
+    .status.warning {
+      border-color: rgba(181, 139, 67, 0.36);
+      background: #fff7df;
+      color: #765315;
+    }
+
+    .summary-list {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0 0;
+    }
+
+    .summary-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .summary-label {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .summary-value {
+      word-break: break-word;
+    }
+
+    .char-count {
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: right;
+    }
+
+    .footer-note {
+      margin: 24px auto 0;
+      max-width: 800px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.94rem;
+    }
+
+    .noscript {
+      margin: 16px 0 0;
+      padding: 16px;
+      border: 1px solid var(--red);
+      border-radius: var(--radius);
+      background: #fff0ee;
+      color: var(--red-dark);
+      font-weight: 700;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 26px;
+      }
+
+      .brand-mark {
+        width: 112px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-panel {
+        position: static;
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        padding: 18px 12px 36px;
+      }
+
+      .hero,
+      .form-section {
+        padding: 22px 16px;
+      }
+
+      .field-grid,
+      .summary-row {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .choice-list {
+        display: grid;
+      }
+
+      .choice {
+        border-radius: 6px;
+      }
+
+      .actions {
+        flex-direction: column-reverse;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <header class="hero">
+        <div class="brand-mark" aria-label="九宮標誌">
+          <img src="https://www.jiugong-international.com/archive/image/weblogo/logo.webp" alt="九宮標誌">
+        </div>
+        <div class="hero-content">
+          <p class="eyebrow">Jiugong Entrance Registration</p>
+          <h1>九宮門生入門意願登記表</h1>
+          <p class="hero-lead">
+            歡迎填寫本表。本表為入門意願之初步登記，填寫完成後宗門負責人將與您個別聯繫，安排後續入門確認流程。
+          </p>
+          <div class="hero-meta" aria-label="填寫資訊">
+            <span class="pill">預估填寫時間：5 到 8 分鐘</span>
+            <span class="pill">共五個部分</span>
+            <span class="pill">資料僅供宗門內部使用</span>
+          </div>
+        </div>
+      </header>
+
+      <noscript>
+        <div class="noscript">您的瀏覽器目前未開啟 JavaScript，這份表單無法正常切換頁面與送出資料。請先開啟 JavaScript 後再填寫。</div>
+      </noscript>
+
+      <main class="layout">
+        <aside class="progress-panel" aria-label="填寫進度">
+          <p class="progress-title">填寫進度</p>
+          <ol class="steps" id="steps">
+            <li class="step is-current" data-step-link="0">
+              <span class="step-number">1</span>
+              <span class="step-name">門生基本資料</span>
+            </li>
+            <li class="step" data-step-link="1" id="spouseStepItem">
+              <span class="step-number">2</span>
+              <span class="step-name">配偶資料</span>
+            </li>
+            <li class="step" data-step-link="2">
+              <span class="step-number">3</span>
+              <span class="step-name">與九宮的淵源</span>
+            </li>
+            <li class="step" data-step-link="3">
+              <span class="step-number">4</span>
+              <span class="step-name">專業背景與貢獻意願</span>
+            </li>
+            <li class="step" data-step-link="4">
+              <span class="step-number">5</span>
+              <span class="step-name">入門動機與確認聲明</span>
+            </li>
+          </ol>
+          <p class="progress-note">選擇「已婚」時才會顯示配偶資料；未婚、離婚或喪偶會自動跳過。</p>
+        </aside>
+
+        <div>
+          <div class="notice">
+            <strong>個資提醒：</strong>
+            請據實填寫。所有資料依《個人資料保護法》規定，僅供九宮門內部使用，不對外提供或販售。
+          </div>
+
+          <section class="form-panel" aria-label="入門意願登記表">
+            <form id="entranceForm" novalidate>
+              <section class="form-section is-active" data-section="0" aria-labelledby="section1Title">
+                <p class="section-kicker">Part One</p>
+                <h2 id="section1Title">第一部分：門生基本資料</h2>
+                <p class="section-intro">這一部分為聯繫與入門確認所需資料，請完整填寫。</p>
+
+                <div class="fields field-grid">
+                  <div class="field">
+                    <label for="studentName">1-1 門生姓名（中文） <span class="required">必填</span></label>
+                    <input id="studentName" name="門生姓名（中文）" type="text" autocomplete="name" required>
+                    <span class="error" data-error-for="studentName"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="birthDate">1-2 出生年月日 <span class="required">必填</span></label>
+                    <input id="birthDate" name="出生年月日" type="date" required>
+                    <span class="error" data-error-for="birthDate"></span>
+                  </div>
+
+                  <fieldset class="choice-group">
+                    <legend>1-3 性別 <span class="required">必填</span></legend>
+                    <div class="choice-list">
+                      <label class="choice"><input type="radio" name="性別" value="男" required>男</label>
+                      <label class="choice"><input type="radio" name="性別" value="女">女</label>
+                      <label class="choice"><input type="radio" name="性別" value="不提供">不提供</label>
+                    </div>
+                    <span class="error" data-error-for="性別"></span>
+                  </fieldset>
+
+                  <fieldset class="choice-group">
+                    <legend>1-4 婚姻狀況 <span class="required">必填</span></legend>
+                    <div class="choice-list">
+                      <label class="choice"><input type="radio" name="婚姻狀況" value="未婚" required>未婚</label>
+                      <label class="choice"><input type="radio" name="婚姻狀況" value="已婚" data-toggle-spouse>已婚</label>
+                      <label class="choice"><input type="radio" name="婚姻狀況" value="離婚">離婚</label>
+                      <label class="choice"><input type="radio" name="婚姻狀況" value="喪偶">喪偶</label>
+                    </div>
+                    <span class="error" data-error-for="婚姻狀況"></span>
+                  </fieldset>
+
+                  <fieldset class="choice-group">
+                    <legend>1-5 國籍 <span class="required">必填</span></legend>
+                    <div class="choice-list">
+                      <label class="choice"><input type="radio" name="國籍" value="中華民國（台灣）" required>中華民國（台灣）</label>
+                      <label class="choice"><input type="radio" name="國籍" value="香港">香港</label>
+                      <label class="choice"><input type="radio" name="國籍" value="中國大陸">中國大陸</label>
+                      <label class="choice"><input type="radio" name="國籍" value="其他" data-other-toggle="nationalityOther">其他</label>
+                    </div>
+                    <input class="other-line" id="nationalityOther" name="國籍其他" type="text" placeholder="請填寫其他國籍">
+                    <span class="error" data-error-for="國籍"></span>
+                  </fieldset>
+
+                  <div class="field">
+                    <label for="currentRegion">1-6 現居國家／地區 <span class="required">必填</span></label>
+                    <input id="currentRegion" name="現居國家／地區" type="text" required>
+                    <span class="error" data-error-for="currentRegion"></span>
+                  </div>
+
+                  <div class="field full">
+                    <label for="permanentAddress">1-7 永久戶籍地址 <span class="required">必填</span></label>
+                    <input id="permanentAddress" name="永久戶籍地址" type="text" autocomplete="street-address" required>
+                    <span class="error" data-error-for="permanentAddress"></span>
+                  </div>
+
+                  <div class="field full">
+                    <label for="mailingAddress">1-8 通訊地址 <span class="required">必填</span></label>
+                    <input id="mailingAddress" name="通訊地址" type="text" placeholder="如與永久地址相同，請填「同上」" required>
+                    <span class="error" data-error-for="mailingAddress"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="mobilePhone">1-9 行動電話 <span class="required">必填</span></label>
+                    <input id="mobilePhone" name="行動電話" type="tel" inputmode="tel" placeholder="+886-912-345-678" required>
+                    <span class="error" data-error-for="mobilePhone"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="email">1-10 電子郵件 <span class="required">必填</span></label>
+                    <input id="email" name="電子郵件" type="email" autocomplete="email" required>
+                    <span class="error" data-error-for="email"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="lineId">1-11 Line ID <span class="required">必填</span></label>
+                    <input id="lineId" name="Line ID" type="text" required>
+                    <span class="error" data-error-for="lineId"></span>
+                  </div>
+                </div>
+
+                <div class="actions">
+                  <span></span>
+                  <button class="button primary" type="button" data-next>下一部分</button>
+                </div>
+              </section>
+
+              <section class="form-section" data-section="1" id="spouseSection" aria-labelledby="section2Title">
+                <p class="section-kicker">Part Two</p>
+                <h2 id="section2Title">第二部分：配偶資料</h2>
+                <p class="section-intro">
+                  此部分協助祖師爺在學理輔導時掌握家庭能量場，提供更完整的學理建議。
+                </p>
+
+                <div class="fields field-grid">
+                  <div class="field">
+                    <label for="spouseName">2-1 配偶姓名（中文）</label>
+                    <input id="spouseName" name="配偶姓名（中文）" type="text">
+                  </div>
+
+                  <div class="field">
+                    <label for="spouseBirthDate">2-2 配偶出生年月日</label>
+                    <input id="spouseBirthDate" name="配偶出生年月日" type="date">
+                  </div>
+
+                  <div class="field full">
+                    <label for="spouseBirthPlace">2-3 配偶出生地（國家／縣市）</label>
+                    <input id="spouseBirthPlace" name="配偶出生地" type="text">
+                  </div>
+                </div>
+
+                <div class="actions">
+                  <button class="button secondary" type="button" data-prev>上一部分</button>
+                  <button class="button primary" type="button" data-next>下一部分</button>
+                </div>
+              </section>
+
+              <section class="form-section" data-section="2" aria-labelledby="section3Title">
+                <p class="section-kicker">Part Three</p>
+                <h2 id="section3Title">第三部分：與九宮的淵源</h2>
+                <p class="section-intro">請讓宗門了解您與九宮的接觸經驗，方便後續安排入門確認。</p>
+
+                <div class="fields">
+                  <fieldset class="choice-group">
+                    <legend>3-1 您是否曾學習過九宮課程？ <span class="required">必填</span></legend>
+                    <div class="choice-list">
+                      <label class="choice"><input type="radio" name="是否曾學習九宮課程" value="是" data-toggle-courses required>是</label>
+                      <label class="choice"><input type="radio" name="是否曾學習九宮課程" value="否">否</label>
+                    </div>
+                    <span class="error" data-error-for="是否曾學習九宮課程"></span>
+                  </fieldset>
+
+                  <fieldset class="choice-group conditional" id="coursesField">
+                    <legend>3-2 曾學習哪些九宮課程？</legend>
+                    <div class="choice-list" data-checkbox-list="曾學習哪些九宮課程">
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="五行">五行</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="流年">流年</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="機會點">機會點</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="財宮">財宮</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="投資理財">投資理財</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="貴人篇">貴人篇</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="資源">資源</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="成功基因">成功基因</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="配偶的奇蹟">配偶的奇蹟</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="啟發孩童潛能">啟發孩童潛能</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="環境氣象學">環境氣象學</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="前程分析師">前程分析師</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="卦課">卦課</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="弟子班">弟子班</label>
+                      <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="其他" data-other-toggle="courseOther">其他</label>
+                    </div>
+                    <input class="other-line" id="courseOther" name="曾學習哪些九宮課程其他" type="text" placeholder="請填寫其他課程">
+                  </fieldset>
+
+                  <fieldset class="choice-group" data-required-checkbox-group="如何認識九宮">
+                    <legend>3-3 您是如何認識九宮的？ <span class="required">必填</span></legend>
+                    <div class="choice-list">
+                      <label class="choice"><input type="checkbox" name="如何認識九宮" value="朋友或家人介紹">朋友或家人介紹</label>
+                      <label class="choice"><input type="checkbox" name="如何認識九宮" value="曾親自上過課">曾親自上過課</label>
+                      <label class="choice"><input type="checkbox" name="如何認識九宮" value="Line 群組或社群媒體">Line 群組或社群媒體</label>
+                      <label class="choice"><input type="checkbox" name="如何認識九宮" value="網路搜尋">網路搜尋</label>
+                      <label class="choice"><input type="checkbox" name="如何認識九宮" value="其他" data-other-toggle="knowOther">其他</label>
+                    </div>
+                    <input class="other-line" id="knowOther" name="如何認識九宮其他" type="text" placeholder="請填寫其他認識方式">
+                    <span class="error" data-error-for="如何認識九宮"></span>
+                  </fieldset>
+
+                  <div class="field">
+                    <label for="referrerName">3-4 引薦人姓名（如有）</label>
+                    <input id="referrerName" name="引薦人姓名" type="text">
+                  </div>
+                </div>
+
+                <div class="actions">
+                  <button class="button secondary" type="button" data-prev>上一部分</button>
+                  <button class="button primary" type="button" data-next>下一部分</button>
+                </div>
+              </section>
+
+              <section class="form-section" data-section="3" aria-labelledby="section4Title">
+                <p class="section-kicker">Part Four</p>
+                <h2 id="section4Title">第四部分：專業背景與宗門貢獻意願</h2>
+                <p class="section-intro">此部分為選填，協助宗門了解您的專業背景，以便任務分配與宗門發展參考。</p>
+
+                <div class="fields field-grid">
+                  <div class="field full">
+                    <label for="occupation">4-1 目前職業或職稱</label>
+                    <input id="occupation" name="目前職業或職稱" type="text">
+                  </div>
+
+                  <div class="field full">
+                    <label for="skills">4-2 專業技能或特長</label>
+                    <textarea id="skills" name="專業技能或特長" placeholder="例如：教學、設計、語言、財務等"></textarea>
+                  </div>
+
+                  <fieldset class="choice-group field full">
+                    <legend>4-3 語言能力（可複選）</legend>
+                    <div class="choice-list">
+                      <label class="choice"><input type="checkbox" name="語言能力" value="中文（普通話）">中文（普通話）</label>
+                      <label class="choice"><input type="checkbox" name="語言能力" value="台語">台語</label>
+                      <label class="choice"><input type="checkbox" name="語言能力" value="英語">英語</label>
+                      <label class="choice"><input type="checkbox" name="語言能力" value="日語">日語</label>
+                      <label class="choice"><input type="checkbox" name="語言能力" value="粵語">粵語</label>
+                      <label class="choice"><input type="checkbox" name="語言能力" value="其他" data-other-toggle="languageOther">其他</label>
+                    </div>
+                    <input class="other-line" id="languageOther" name="語言能力其他" type="text" placeholder="請填寫其他語言">
+                  </fieldset>
+
+                  <fieldset class="choice-group field full">
+                    <legend>4-4 您是否有意願協助宗門海外發展？</legend>
+                    <div class="choice-list">
+                      <label class="choice"><input type="radio" name="海外發展意願" value="是，有意願" data-region-toggle>是，有意願</label>
+                      <label class="choice"><input type="radio" name="海外發展意願" value="視情況而定">視情況而定</label>
+                      <label class="choice"><input type="radio" name="海外發展意願" value="目前無法配合">目前無法配合</label>
+                    </div>
+                    <input class="other-line" id="overseasRegion" name="海外可配合地區" type="text" placeholder="請說明可配合地區">
+                  </fieldset>
+                </div>
+
+                <div class="actions">
+                  <button class="button secondary" type="button" data-prev>上一部分</button>
+                  <button class="button primary" type="button" data-next>下一部分</button>
+                </div>
+              </section>
+
+              <section class="form-section" data-section="4" aria-labelledby="section5Title">
+                <p class="section-kicker">Part Five</p>
+                <h2 id="section5Title">第五部分：入門動機與確認聲明</h2>
+                <p class="section-intro">請認真填寫入門動機，並確認下方聲明後送出。</p>
+
+                <div class="fields">
+                  <div class="field">
+                    <label for="motivation">5-1 請以您自己的文字，簡要說明您希望成為九宮門生的原因 <span class="required">必填</span></label>
+                    <span class="help">這段文字將成為您入門傳承見證的一部分，請至少填寫 50 個字。</span>
+                    <textarea id="motivation" name="入門動機" minlength="50" required></textarea>
+                    <span class="char-count" id="motivationCount">已填 0 字，至少 50 字</span>
+                    <span class="error" data-error-for="motivation"></span>
+                  </div>
+
+                  <div class="field">
+                    <label>個人資料蒐集告知暨同意聲明</label>
+                    <div class="consent-box" tabindex="0" aria-label="個人資料蒐集告知暨同意聲明全文">
+                      <p>依中華民國《個人資料保護法》第 8 條第 1 項規定，本宗門在蒐集您的個人資料前，依法告知以下事項：</p>
+                      <ol>
+                        <li>蒐集機關：九宮門（負責人：路音）。</li>
+                        <li>蒐集目的：建立門生傳承譜系、宗門事務聯繫、學理輔導分析、活動通知、任務派發、貢獻點管理，以及海外活動隨行資格審核。</li>
+                        <li>資料類別：識別資料、聯絡資料、家庭資料、職業背景、宗門關係資料。</li>
+                        <li>利用期間：自入門之日起至主動退出或宗門解散為止。</li>
+                        <li>利用地區：中華民國（台灣）境內為主，如涉及海外活動則延伸至活動所在地。</li>
+                        <li>利用對象：九宮門宗門內部人員，不對外公開、不出售、不租借予任何第三方。</li>
+                        <li>您的權利：您得依法行使查詢、閱覽、複製、補充更正、停止蒐集處理及刪除等權利，本宗門將於 15 個工作日內回覆。</li>
+                        <li>不提供之影響：若不願提供必填欄位，本宗門將無法完成入門登記及後續安排。</li>
+                      </ol>
+                    </div>
+                  </div>
+
+                  <fieldset class="choice-group" data-required-all-checkboxes="確認聲明">
+                    <legend>5-2 確認聲明 <span class="required">以下各項皆須勾選方可提交</span></legend>
+                    <div class="consent-checks">
+                      <label class="consent-item">
+                        <input type="checkbox" name="確認聲明" value="我已詳閱九宮宗門六條戒律，並願意遵守。">
+                        <span>我已詳閱九宮宗門六條戒律，並願意遵守。</span>
+                      </label>
+                      <label class="consent-item">
+                        <input type="checkbox" name="確認聲明" value="我理解成為門生後將肩負學理傳承的使命，而非單純的消費關係。">
+                        <span>我理解成為門生後將肩負學理傳承的使命，而非單純的消費關係。</span>
+                      </label>
+                      <label class="consent-item">
+                        <input type="checkbox" name="確認聲明" value="我確認本表所填資料均屬真實，如有不實願接受宗門相應處置。">
+                        <span>我確認本表所填資料均屬真實，如有不實願接受宗門相應處置。</span>
+                      </label>
+                      <label class="consent-item">
+                        <input type="checkbox" name="確認聲明" value="我已詳閱並同意個人資料蒐集告知暨同意聲明。">
+                        <span>我已詳閱並同意個人資料蒐集告知暨同意聲明。</span>
+                      </label>
+                    </div>
+                    <span class="error" data-error-for="確認聲明"></span>
+                  </fieldset>
+
+                  <div class="field">
+                    <label>送出前重點確認</label>
+                    <div class="summary-list" id="summaryList" aria-live="polite"></div>
+                  </div>
+                </div>
+
+                <div class="actions">
+                  <button class="button secondary" type="button" data-prev>上一部分</button>
+                  <button class="button primary" type="submit" id="submitButton">確認送出</button>
+                </div>
+
+                <div class="status warning" id="setupStatus">
+                  目前尚未設定 Google 表單收件位置。請依照 `設定說明.md` 建立 Google 表單，並把表單送出網址與欄位代碼貼到本檔案。
+                </div>
+                <div class="status info" id="submitStatus" role="status" aria-live="polite"></div>
+              </section>
+            </form>
+          </section>
+        </div>
+      </main>
+
+      <p class="footer-note">
+        感謝您填寫本表。宗門負責人將於收到登記後 3 個工作日內，透過您填寫的 Line ID 或電話與您聯繫。您的填寫，是您與九宮緣分的起點。
+      </p>
+    </div>
+  </div>
+
+  <script>
+    /*
+      設定方式：
+      1. 先照「設定說明.md」建立 Google 表單。
+      2. 把 Google 表單送出網址貼到 GOOGLE_FORM_ACTION_URL。
+      3. 把各欄位的 entry.xxxxx 代碼貼到 GOOGLE_FORM_FIELDS。
+      4. 最少需要設定：門生姓名、行動電話、電子郵件、Line ID、完整資料備份。
+    */
+    const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfFJzhqjmfbtlmODl7tq2BkfgByg8k4YYpL_agKBUvY509mEw/formResponse";
+    const GOOGLE_FORM_FIELDS = {
+      "門生姓名（中文）": "entry.1129715857",
+      "行動電話": "entry.786409375",
+      "電子郵件": "entry.1982742873",
+      "Line ID": "entry.669406857",
+      "完整資料備份": "entry.1005367713"
+    };
+    const GOOGLE_FORM_EXTRA_FIELDS = {
+      "fvv": "1",
+      "partialResponse": "[null,null,\"2410548268036751073\"]",
+      "pageHistory": "0",
+      "fbzx": "2410548268036751073",
+      "submissionTimestamp": "-1"
+    };
+
+    const form = document.getElementById("entranceForm");
+    const sections = Array.from(document.querySelectorAll(".form-section"));
+    const steps = Array.from(document.querySelectorAll(".step"));
+    const spouseStepItem = document.getElementById("spouseStepItem");
+    const coursesField = document.getElementById("coursesField");
+    const setupStatus = document.getElementById("setupStatus");
+    const submitStatus = document.getElementById("submitStatus");
+    const submitButton = document.getElementById("submitButton");
+    const motivation = document.getElementById("motivation");
+    const motivationCount = document.getElementById("motivationCount");
+    const summaryList = document.getElementById("summaryList");
+
+    let currentSection = 0;
+
+    setupStatus.classList.toggle("is-visible", !isGoogleFormsConfigured());
+
+    function isMarried() {
+      return getRadioValue("婚姻狀況") === "已婚";
+    }
+
+    function learnedJiugong() {
+      return getRadioValue("是否曾學習九宮課程") === "是";
+    }
+
+    function visibleSectionIndexes() {
+      return sections
+        .map((section, index) => ({ section, index }))
+        .filter((item) => item.index !== 1 || isMarried())
+        .map((item) => item.index);
+    }
+
+    function setSection(index) {
+      const available = visibleSectionIndexes();
+      if (!available.includes(index)) {
+        index = available.find((item) => item > index) ?? available[available.length - 1];
+      }
+
+      currentSection = index;
+
+      sections.forEach((section, sectionIndex) => {
+        const active = sectionIndex === currentSection;
+        section.classList.toggle("is-active", active);
+        section.toggleAttribute("hidden", !active);
+      });
+
+      steps.forEach((step) => {
+        const stepIndex = Number(step.dataset.stepLink);
+        const visiblePosition = available.indexOf(stepIndex);
+        const isVisible = visiblePosition !== -1;
+        step.hidden = !isVisible;
+        if (isVisible) {
+          step.querySelector(".step-number").textContent = String(visiblePosition + 1);
+        }
+        step.classList.toggle("is-current", stepIndex === currentSection);
+        step.classList.toggle("is-complete", visiblePosition < available.indexOf(currentSection));
+      });
+
+      if (currentSection === 4) {
+        renderSummary();
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function goNext() {
+      if (!validateSection(currentSection)) return;
+      const available = visibleSectionIndexes();
+      const currentIndex = available.indexOf(currentSection);
+      const next = available[currentIndex + 1];
+      if (typeof next === "number") setSection(next);
+    }
+
+    function goPrev() {
+      const available = visibleSectionIndexes();
+      const currentIndex = available.indexOf(currentSection);
+      const prev = available[currentIndex - 1];
+      if (typeof prev === "number") setSection(prev);
+    }
+
+    function getRadioValue(name) {
+      const checked = form.querySelector(`input[type="radio"][name="${cssEscape(name)}"]:checked`);
+      return checked ? checked.value : "";
+    }
+
+    function getCheckboxValues(name) {
+      return Array.from(form.querySelectorAll(`input[type="checkbox"][name="${cssEscape(name)}"]:checked`))
+        .map((input) => input.value);
+    }
+
+    function cssEscape(value) {
+      if (window.CSS && typeof window.CSS.escape === "function") {
+        return window.CSS.escape(value);
+      }
+      return value.replace(/["\\]/g, "\\$&");
+    }
+
+    function showError(key, message) {
+      const error = document.querySelector(`[data-error-for="${cssEscape(key)}"]`);
+      if (error) {
+        error.textContent = message;
+        error.classList.add("is-visible");
+      }
+    }
+
+    function clearErrors(scope) {
+      scope.querySelectorAll(".error").forEach((error) => {
+        error.textContent = "";
+        error.classList.remove("is-visible");
+      });
+    }
+
+    function validateSection(index) {
+      const section = sections[index];
+      let valid = true;
+      clearErrors(section);
+
+      const controls = Array.from(section.querySelectorAll("input, select, textarea"))
+        .filter((control) => !control.disabled && control.offsetParent !== null);
+
+      controls.forEach((control) => {
+        if (control.type === "radio") return;
+        if (control.type === "checkbox") return;
+
+        if (!control.checkValidity()) {
+          valid = false;
+          const label = section.querySelector(`label[for="${cssEscape(control.id)}"]`);
+          const fieldName = label ? label.textContent.replace("必填", "").trim() : "此欄位";
+          const message = control.validity.typeMismatch
+            ? "Email 格式看起來不正確，請再檢查一次。"
+            : control.validity.tooShort
+              ? `請至少填寫 ${control.minLength} 個字。`
+              : `${fieldName}需要填寫。`;
+          showError(control.id, message);
+        }
+      });
+
+      const requiredRadioNames = new Set(
+        controls
+          .filter((control) => control.type === "radio" && control.required)
+          .map((control) => control.name)
+      );
+
+      requiredRadioNames.forEach((name) => {
+        if (!getRadioValue(name)) {
+          valid = false;
+          showError(name, "這一題需要選一個答案。");
+        }
+      });
+
+      section.querySelectorAll("[data-required-checkbox-group]").forEach((group) => {
+        const name = group.dataset.requiredCheckboxGroup;
+        const checked = group.querySelectorAll(`input[type="checkbox"][name="${cssEscape(name)}"]:checked`);
+        if (checked.length === 0) {
+          valid = false;
+          showError(name, "這一題至少需要勾選一個答案。");
+        }
+      });
+
+      section.querySelectorAll("[data-required-all-checkboxes]").forEach((group) => {
+        const name = group.dataset.requiredAllCheckboxes;
+        const boxes = Array.from(group.querySelectorAll(`input[type="checkbox"][name="${cssEscape(name)}"]`));
+        if (!boxes.every((box) => box.checked)) {
+          valid = false;
+          showError(name, "這裡每一項都需要勾選，才能送出。");
+        }
+      });
+
+      section.querySelectorAll("[data-other-toggle]").forEach((toggle) => {
+        const otherInput = document.getElementById(toggle.dataset.otherToggle);
+        if (toggle.checked && otherInput && !otherInput.value.trim()) {
+          valid = false;
+          otherInput.focus();
+          const label = otherInput.placeholder || "請補充說明";
+          showError(toggle.name, label);
+        }
+      });
+
+      if (!valid) {
+        const firstError = section.querySelector(".error.is-visible");
+        if (firstError) firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      return valid;
+    }
+
+    function updateConditionalFields() {
+      spouseStepItem.hidden = !isMarried();
+      coursesField.classList.toggle("is-visible", learnedJiugong());
+
+      if (!learnedJiugong()) {
+        coursesField.querySelectorAll("input").forEach((input) => {
+          if (input.type === "checkbox") input.checked = false;
+          if (input.type === "text") input.value = "";
+        });
+      }
+
+      document.querySelectorAll("[data-other-toggle]").forEach((toggle) => {
+        const otherInput = document.getElementById(toggle.dataset.otherToggle);
+        if (!otherInput) return;
+        otherInput.classList.toggle("is-visible", toggle.checked);
+        otherInput.required = toggle.checked;
+        if (!toggle.checked) otherInput.value = "";
+      });
+
+      const regionToggle = form.querySelector("[data-region-toggle]");
+      const overseasRegion = document.getElementById("overseasRegion");
+      if (regionToggle && overseasRegion) {
+        overseasRegion.classList.toggle("is-visible", regionToggle.checked);
+        if (!regionToggle.checked) overseasRegion.value = "";
+      }
+
+      if (currentSection === 1 && !isMarried()) {
+        setSection(2);
+      } else {
+        setSection(currentSection);
+      }
+    }
+
+    function updateMotivationCount() {
+      const count = motivation.value.trim().length;
+      motivationCount.textContent = `已填 ${count} 字，至少 50 字`;
+      motivationCount.style.color = count >= 50 ? "#1e6d41" : "var(--muted)";
+    }
+
+    function addOtherValue(values, otherInputId) {
+      const otherInput = document.getElementById(otherInputId);
+      if (otherInput && otherInput.value.trim()) {
+        return values.map((value) => value === "其他" ? `其他：${otherInput.value.trim()}` : value);
+      }
+      return values;
+    }
+
+    function serializeForm() {
+      const submissionId = createSubmissionId();
+      const knowValues = addOtherValue(getCheckboxValues("如何認識九宮"), "knowOther");
+      const courseValues = learnedJiugong()
+        ? addOtherValue(getCheckboxValues("曾學習哪些九宮課程"), "courseOther")
+        : [];
+      const languageValues = addOtherValue(getCheckboxValues("語言能力"), "languageOther");
+      const nationality = getRadioValue("國籍") === "其他"
+        ? `其他：${document.getElementById("nationalityOther").value.trim()}`
+        : getRadioValue("國籍");
+      const overseas = getRadioValue("海外發展意願");
+      const spouseVisible = isMarried();
+
+      const payload = {
+        "表單版本": "2026-05-15",
+        "送出編號": submissionId,
+        "瀏覽器送出時間": new Date().toISOString(),
+        "門生姓名（中文）": valueOf("studentName"),
+        "出生年月日": valueOf("birthDate"),
+        "性別": getRadioValue("性別"),
+        "婚姻狀況": getRadioValue("婚姻狀況"),
+        "國籍": nationality,
+        "現居國家／地區": valueOf("currentRegion"),
+        "永久戶籍地址": valueOf("permanentAddress"),
+        "通訊地址": valueOf("mailingAddress"),
+        "行動電話": valueOf("mobilePhone"),
+        "電子郵件": valueOf("email"),
+        "Line ID": valueOf("lineId"),
+        "配偶姓名（中文）": spouseVisible ? valueOf("spouseName") : "",
+        "配偶出生年月日": spouseVisible ? valueOf("spouseBirthDate") : "",
+        "配偶出生地": spouseVisible ? valueOf("spouseBirthPlace") : "",
+        "是否曾學習九宮課程": getRadioValue("是否曾學習九宮課程"),
+        "曾學習哪些九宮課程": courseValues.join("、"),
+        "如何認識九宮": knowValues.join("、"),
+        "引薦人姓名": valueOf("referrerName"),
+        "目前職業或職稱": valueOf("occupation"),
+        "專業技能或特長": valueOf("skills"),
+        "語言能力": languageValues.join("、"),
+        "海外發展意願": overseas,
+        "海外可配合地區": overseas === "是，有意願" ? valueOf("overseasRegion") : "",
+        "入門動機": valueOf("motivation"),
+        "確認聲明": getCheckboxValues("確認聲明").join("；"),
+        "個資同意": getCheckboxValues("確認聲明").some((item) => item.includes("個人資料")) ? "已同意" : "",
+        "頁面網址": window.location.href
+      };
+
+      payload["完整資料備份"] = formatFullPayload(payload);
+      return payload;
+    }
+
+    function valueOf(id) {
+      const element = document.getElementById(id);
+      return element ? element.value.trim() : "";
+    }
+
+    function createSubmissionId() {
+      const now = new Date();
+      const pad = (number) => String(number).padStart(2, "0");
+      const datePart = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
+      const timePart = `${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+      const randomPart = Math.random().toString(36).slice(2, 7).toUpperCase();
+      return `JG-${datePart}-${timePart}-${randomPart}`;
+    }
+
+    function renderSummary() {
+      const rows = [
+        ["姓名", valueOf("studentName")],
+        ["行動電話", valueOf("mobilePhone")],
+        ["電子郵件", valueOf("email")],
+        ["Line ID", valueOf("lineId")],
+        ["婚姻狀況", getRadioValue("婚姻狀況")],
+        ["是否學習過九宮", getRadioValue("是否曾學習九宮課程") || "尚未填寫"],
+        ["引薦人", valueOf("referrerName") || "未填寫"]
+      ];
+
+      summaryList.innerHTML = rows.map(([label, value]) => `
+        <div class="summary-row">
+          <div class="summary-label">${escapeHtml(label)}</div>
+          <div class="summary-value">${escapeHtml(value || "尚未填寫")}</div>
+        </div>
+      `).join("");
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function isGoogleFormsConfigured() {
+      const hasAction = GOOGLE_FORM_ACTION_URL.trim().includes("/formResponse");
+      const hasAnyField = Object.values(GOOGLE_FORM_FIELDS).some((entryName) => entryName.trim().startsWith("entry."));
+      return hasAction && hasAnyField;
+    }
+
+    function formatFullPayload(payload) {
+      return Object.entries(payload)
+        .filter(([key]) => key !== "完整資料備份")
+        .map(([key, value]) => `${key}：${value || "未填寫"}`)
+        .join("\n");
+    }
+
+    function appendHiddenInput(targetForm, name, value) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = name;
+      input.value = value || "";
+      targetForm.appendChild(input);
+    }
+
+    function submitToGoogleForm(payload) {
+      const googleForm = document.createElement("form");
+      googleForm.action = GOOGLE_FORM_ACTION_URL;
+      googleForm.method = "POST";
+      googleForm.target = "_self";
+      googleForm.style.display = "none";
+
+      Object.entries(GOOGLE_FORM_FIELDS).forEach(([payloadKey, entryName]) => {
+        const cleanEntryName = entryName.trim();
+        if (!cleanEntryName || !cleanEntryName.startsWith("entry.")) return;
+        appendHiddenInput(googleForm, cleanEntryName, payload[payloadKey] || "");
+      });
+
+      Object.entries(GOOGLE_FORM_EXTRA_FIELDS).forEach(([name, value]) => {
+        appendHiddenInput(googleForm, name, value);
+      });
+
+      document.body.appendChild(googleForm);
+      googleForm.submit();
+    }
+
+    form.addEventListener("click", (event) => {
+      if (event.target.matches("[data-next]")) goNext();
+      if (event.target.matches("[data-prev]")) goPrev();
+    });
+
+    form.addEventListener("change", (event) => {
+      if (
+        event.target.matches("input[type='radio']") ||
+        event.target.matches("[data-other-toggle]") ||
+        event.target.matches("[data-region-toggle]")
+      ) {
+        updateConditionalFields();
+      }
+    });
+
+    motivation.addEventListener("input", updateMotivationCount);
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (!validateSection(currentSection)) return;
+
+      if (!isGoogleFormsConfigured()) {
+        setupStatus.classList.add("is-visible");
+        setupStatus.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      const payload = serializeForm();
+      submitButton.disabled = true;
+      submitStatus.className = "status info is-visible";
+      submitStatus.textContent = "正在送出資料，請稍候。";
+
+      submitStatus.className = "status info is-visible";
+      submitStatus.textContent = `正在送出資料。送出編號：${payload["送出編號"]}。接下來會轉到 Google 完成頁，看到「已記錄你的回覆」才算完成。`;
+      submitToGoogleForm(payload);
+    });
+
+    updateMotivationCount();
+    updateConditionalFields();
+  </script>
+</body>
+</html>
