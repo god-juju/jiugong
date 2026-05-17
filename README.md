@@ -31,4 +31,13 @@
 
 這個資料夾可以獨立 commit / push，不需要跟報表中心放在同一個專案。
 
-如果要使用老闆登入後台，請改用 Cloudflare Pages 部署，設定方式看 `後台設定.md`。
+目前已設定 GitHub Actions 自動部署。
+
+之後只要 commit 並 push 到 `main`，GitHub 會自動部署到 Cloudflare Pages。
+
+如果自動部署失敗，請檢查 GitHub repo 的 Secrets 是否有：
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+
+詳細設定方式看 `後台設定.md`。

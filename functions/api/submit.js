@@ -91,8 +91,26 @@ function validatePayload(payload) {
     "Line ID",
     "是否曾學習九宮課程",
     "如何認識九宮",
+    "引薦人姓名",
+    "目前職業或職稱",
+    "專業技能或特長",
+    "語言能力",
+    "海外發展意願",
     "入門動機"
   ];
+
+  if (cleanText(payload["婚姻狀況"]) === "已婚") {
+    requiredFields.push("配偶姓名（中文）", "配偶出生年月日", "配偶出生地");
+  }
+
+  if (cleanText(payload["是否曾學習九宮課程"]) === "是") {
+    requiredFields.push("曾學習哪些九宮課程");
+  }
+
+  if (cleanText(payload["海外發展意願"]) === "是，有意願") {
+    requiredFields.push("海外可配合地區");
+  }
+
   const missing = requiredFields.filter((field) => !cleanText(payload[field]));
 
   if (missing.length > 0) {
@@ -110,13 +128,12 @@ function validatePayload(payload) {
 
   const confirmation = cleanText(payload["確認聲明"]);
   const requiredConfirmations = [
-    "六條戒律",
     "學理傳承",
     "資料均屬真實",
     "個人資料蒐集"
   ];
   if (requiredConfirmations.some((text) => !confirmation.includes(text))) {
-    return "確認聲明四項都需要勾選。";
+    return "確認聲明三項都需要勾選。";
   }
 
   if (cleanText(payload["個資同意"]) !== "已同意") {

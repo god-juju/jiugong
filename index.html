@@ -808,7 +808,7 @@
               <span class="step-name">入門動機與確認聲明</span>
             </li>
           </ol>
-          <p class="progress-note">選擇「已婚」時才會顯示配偶資料；未婚、離婚或喪偶會自動跳過。</p>
+          <p class="progress-note">選擇「已婚」時，配偶資料也需要完整填寫；其他婚姻狀況不會要求配偶資料。</p>
         </aside>
 
         <div>
@@ -922,18 +922,21 @@
 
                 <div class="fields field-grid">
                   <div class="field">
-                    <label for="spouseName">2-1 配偶姓名（中文）</label>
-                    <input id="spouseName" name="配偶姓名（中文）" type="text">
+                    <label for="spouseName">2-1 配偶姓名（中文） <span class="required">必填</span></label>
+                    <input id="spouseName" name="配偶姓名（中文）" type="text" required>
+                    <span class="error" data-error-for="spouseName"></span>
                   </div>
 
                   <div class="field">
-                    <label for="spouseBirthDate">2-2 配偶出生年月日</label>
-                    <input id="spouseBirthDate" name="配偶出生年月日" type="date">
+                    <label for="spouseBirthDate">2-2 配偶出生年月日 <span class="required">必填</span></label>
+                    <input id="spouseBirthDate" name="配偶出生年月日" type="date" required>
+                    <span class="error" data-error-for="spouseBirthDate"></span>
                   </div>
 
                   <div class="field full">
-                    <label for="spouseBirthPlace">2-3 配偶出生地（國家／縣市）</label>
-                    <input id="spouseBirthPlace" name="配偶出生地" type="text">
+                    <label for="spouseBirthPlace">2-3 配偶出生地（國家／縣市） <span class="required">必填</span></label>
+                    <input id="spouseBirthPlace" name="配偶出生地" type="text" required>
+                    <span class="error" data-error-for="spouseBirthPlace"></span>
                   </div>
                 </div>
 
@@ -958,8 +961,8 @@
                     <span class="error" data-error-for="是否曾學習九宮課程"></span>
                   </fieldset>
 
-                  <fieldset class="choice-group conditional" id="coursesField">
-                    <legend>3-2 曾學習哪些九宮課程？</legend>
+                  <fieldset class="choice-group conditional" id="coursesField" data-required-checkbox-group="曾學習哪些九宮課程">
+                    <legend>3-2 曾學習哪些九宮課程？ <span class="required">必填</span></legend>
                     <div class="choice-list" data-checkbox-list="曾學習哪些九宮課程">
                       <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="五行">五行</label>
                       <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="流年">流年</label>
@@ -978,6 +981,7 @@
                       <label class="choice"><input type="checkbox" name="曾學習哪些九宮課程" value="其他" data-other-toggle="courseOther">其他</label>
                     </div>
                     <input class="other-line" id="courseOther" name="曾學習哪些九宮課程其他" type="text" placeholder="請填寫其他課程">
+                    <span class="error" data-error-for="曾學習哪些九宮課程"></span>
                   </fieldset>
 
                   <fieldset class="choice-group" data-required-checkbox-group="如何認識九宮">
@@ -994,8 +998,9 @@
                   </fieldset>
 
                   <div class="field">
-                    <label for="referrerName">3-4 引薦人姓名（如有）</label>
-                    <input id="referrerName" name="引薦人姓名" type="text">
+                    <label for="referrerName">3-4 引薦人姓名 <span class="required">必填</span></label>
+                    <input id="referrerName" name="引薦人姓名" type="text" placeholder="沒有請填「無」" required>
+                    <span class="error" data-error-for="referrerName"></span>
                   </div>
                 </div>
 
@@ -1008,21 +1013,23 @@
               <section class="form-section" data-section="3" aria-labelledby="section4Title">
                 <p class="section-kicker">Part Four</p>
                 <h2 id="section4Title">第四部分：專業背景與宗門貢獻意願</h2>
-                <p class="section-intro">此部分為選填，協助宗門了解您的專業背景，以便任務分配與宗門發展參考。</p>
+                <p class="section-intro">請完整填寫此部分，協助宗門了解您的專業背景，以便任務分配與宗門發展參考。</p>
 
                 <div class="fields field-grid">
                   <div class="field full">
-                    <label for="occupation">4-1 目前職業或職稱</label>
-                    <input id="occupation" name="目前職業或職稱" type="text">
+                    <label for="occupation">4-1 目前職業或職稱 <span class="required">必填</span></label>
+                    <input id="occupation" name="目前職業或職稱" type="text" placeholder="沒有請填「無」" required>
+                    <span class="error" data-error-for="occupation"></span>
                   </div>
 
                   <div class="field full">
-                    <label for="skills">4-2 專業技能或特長</label>
-                    <textarea id="skills" name="專業技能或特長" placeholder="例如：教學、設計、語言、財務等"></textarea>
+                    <label for="skills">4-2 專業技能或特長 <span class="required">必填</span></label>
+                    <textarea id="skills" name="專業技能或特長" placeholder="例如：教學、設計、語言、財務等；沒有請填「無」" required></textarea>
+                    <span class="error" data-error-for="skills"></span>
                   </div>
 
-                  <fieldset class="choice-group field full">
-                    <legend>4-3 語言能力（可複選）</legend>
+                  <fieldset class="choice-group field full" data-required-checkbox-group="語言能力">
+                    <legend>4-3 語言能力（可複選） <span class="required">必填</span></legend>
                     <div class="choice-list">
                       <label class="choice"><input type="checkbox" name="語言能力" value="中文（普通話）">中文（普通話）</label>
                       <label class="choice"><input type="checkbox" name="語言能力" value="台語">台語</label>
@@ -1032,16 +1039,19 @@
                       <label class="choice"><input type="checkbox" name="語言能力" value="其他" data-other-toggle="languageOther">其他</label>
                     </div>
                     <input class="other-line" id="languageOther" name="語言能力其他" type="text" placeholder="請填寫其他語言">
+                    <span class="error" data-error-for="語言能力"></span>
                   </fieldset>
 
                   <fieldset class="choice-group field full">
-                    <legend>4-4 您是否有意願協助宗門海外發展？</legend>
+                    <legend>4-4 您是否有意願協助宗門海外發展？ <span class="required">必填</span></legend>
                     <div class="choice-list">
-                      <label class="choice"><input type="radio" name="海外發展意願" value="是，有意願" data-region-toggle>是，有意願</label>
+                      <label class="choice"><input type="radio" name="海外發展意願" value="是，有意願" data-region-toggle required>是，有意願</label>
                       <label class="choice"><input type="radio" name="海外發展意願" value="視情況而定">視情況而定</label>
                       <label class="choice"><input type="radio" name="海外發展意願" value="目前無法配合">目前無法配合</label>
                     </div>
                     <input class="other-line" id="overseasRegion" name="海外可配合地區" type="text" placeholder="請說明可配合地區">
+                    <span class="error" data-error-for="海外發展意願"></span>
+                    <span class="error" data-error-for="overseasRegion"></span>
                   </fieldset>
                 </div>
 
@@ -1085,10 +1095,6 @@
                   <fieldset class="choice-group" data-required-all-checkboxes="確認聲明">
                     <legend>5-2 確認聲明 <span class="required">以下各項皆須勾選方可提交</span></legend>
                     <div class="consent-checks">
-                      <label class="consent-item">
-                        <input type="checkbox" name="確認聲明" value="我已詳閱九宮宗門六條戒律，並願意遵守。">
-                        <span>我已詳閱九宮宗門六條戒律，並願意遵守。</span>
-                      </label>
                       <label class="consent-item">
                         <input type="checkbox" name="確認聲明" value="我理解成為門生後將肩負學理傳承的使命，而非單純的消費關係。">
                         <span>我理解成為門生後將肩負學理傳承的使命，而非單純的消費關係。</span>
@@ -1194,6 +1200,21 @@
       activeSection.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    function refreshSteps(available = visibleSectionIndexes()) {
+      steps.forEach((step) => {
+        const stepIndex = Number(step.dataset.stepLink);
+        const visiblePosition = available.indexOf(stepIndex);
+        const currentPosition = available.indexOf(currentSection);
+        const isVisible = visiblePosition !== -1;
+        step.hidden = !isVisible;
+        if (isVisible) {
+          step.querySelector(".step-number").textContent = String(visiblePosition + 1);
+        }
+        step.classList.toggle("is-current", stepIndex === currentSection);
+        step.classList.toggle("is-complete", visiblePosition < currentPosition);
+      });
+    }
+
     function setSection(index, options = {}) {
       const shouldScroll = options.scroll === true;
       const available = visibleSectionIndexes();
@@ -1209,17 +1230,7 @@
         section.toggleAttribute("hidden", !active);
       });
 
-      steps.forEach((step) => {
-        const stepIndex = Number(step.dataset.stepLink);
-        const visiblePosition = available.indexOf(stepIndex);
-        const isVisible = visiblePosition !== -1;
-        step.hidden = !isVisible;
-        if (isVisible) {
-          step.querySelector(".step-number").textContent = String(visiblePosition + 1);
-        }
-        step.classList.toggle("is-current", stepIndex === currentSection);
-        step.classList.toggle("is-complete", visiblePosition < available.indexOf(currentSection));
-      });
+      refreshSteps(available);
 
       if (currentSection === 4) {
         renderSummary();
@@ -1316,6 +1327,7 @@
       });
 
       section.querySelectorAll("[data-required-checkbox-group]").forEach((group) => {
+        if (group.offsetParent === null) return;
         const name = group.dataset.requiredCheckboxGroup;
         const checked = group.querySelectorAll(`input[type="checkbox"][name="${cssEscape(name)}"]:checked`);
         if (checked.length === 0) {
@@ -1325,6 +1337,7 @@
       });
 
       section.querySelectorAll("[data-required-all-checkboxes]").forEach((group) => {
+        if (group.offsetParent === null) return;
         const name = group.dataset.requiredAllCheckboxes;
         const boxes = Array.from(group.querySelectorAll(`input[type="checkbox"][name="${cssEscape(name)}"]`));
         if (!boxes.every((box) => box.checked)) {
@@ -1374,13 +1387,19 @@
       const overseasRegion = document.getElementById("overseasRegion");
       if (regionToggle && overseasRegion) {
         overseasRegion.classList.toggle("is-visible", regionToggle.checked);
+        overseasRegion.required = regionToggle.checked;
         if (!regionToggle.checked) overseasRegion.value = "";
       }
 
-      if (currentSection === 1 && !isMarried()) {
-        setSection(2);
-      } else {
-        setSection(currentSection);
+      const available = visibleSectionIndexes();
+      if (!available.includes(currentSection)) {
+        setSection(available.find((item) => item > currentSection) ?? available[available.length - 1]);
+        return;
+      }
+
+      refreshSteps(available);
+      if (currentSection === 4) {
+        renderSummary();
       }
     }
 
