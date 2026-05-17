@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>九宮門生登記後台</title>
+  <meta name="description" content="九宮門生入門意願登記資料後台。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f3ec;
+      --paper-strong: #fffaf2;
+      --ink: #252525;
+      --muted: #6c6760;
+      --line: #ddd3c2;
+      --navy: #25156c;
+      --red: #c82323;
+      --red-dark: #9f1717;
+      --gold: #b58b43;
+      --green: #1e6d41;
+      --white: #ffffff;
+      --shadow: 0 22px 60px rgba(30, 24, 18, 0.12);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Serif TC", "Microsoft JhengHei", serif;
+      background:
+        linear-gradient(135deg, rgba(37, 21, 108, 0.06), transparent 32rem),
+        linear-gradient(315deg, rgba(200, 35, 35, 0.05), transparent 28rem),
+        var(--paper);
+      line-height: 1.7;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 28px 20px 48px;
+    }
+
+    .shell {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 0;
+    }
+
+    .brand {
+      display: grid;
+      gap: 4px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-family: "Noto Serif Display", "Noto Serif TC", serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    .panel,
+    .stat,
+    .detail-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 250, 242, 0.94);
+      box-shadow: var(--shadow);
+    }
+
+    .login-panel {
+      width: min(480px, 100%);
+      margin: 60px auto 0;
+      padding: 30px;
+    }
+
+    .login-title {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: 1.45rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    label {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid #cfc2ad;
+      border-radius: 6px;
+      background: var(--white);
+      color: var(--ink);
+      padding: 12px 14px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(37, 21, 108, 0.12);
+    }
+
+    .button {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      padding: 10px 18px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      background: var(--red);
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(200, 35, 35, 0.2);
+    }
+
+    .button.primary:hover {
+      background: var(--red-dark);
+    }
+
+    .button.secondary {
+      background: var(--white);
+      color: var(--navy);
+      border-color: rgba(37, 21, 108, 0.22);
+    }
+
+    .button[disabled] {
+      cursor: not-allowed;
+      opacity: 0.58;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .login-actions,
+    .toolbar,
+    .detail-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .login-actions {
+      margin-top: 24px;
+    }
+
+    .status {
+      display: none;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      font-weight: 700;
+    }
+
+    .status.is-visible {
+      display: block;
+    }
+
+    .status.error {
+      border-color: rgba(200, 35, 35, 0.28);
+      background: #fff0ee;
+      color: var(--red-dark);
+    }
+
+    .status.info {
+      border-color: rgba(37, 21, 108, 0.18);
+      background: #ece9f6;
+      color: var(--navy);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin: 16px 0 22px;
+    }
+
+    .stat {
+      padding: 18px;
+      box-shadow: 0 14px 34px rgba(30, 24, 18, 0.08);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .stat-value {
+      margin-top: 4px;
+      color: var(--navy);
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .toolbar {
+      justify-content: space-between;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .search {
+      flex: 1 1 320px;
+      max-width: 520px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .table-panel {
+      overflow: hidden;
+    }
+
+    .records {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255, 250, 242, 0.94);
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--navy);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    td {
+      color: #38332e;
+      font-size: 0.94rem;
+    }
+
+    tr {
+      transition: background 140ms ease;
+    }
+
+    tr[data-id] {
+      cursor: pointer;
+    }
+
+    tr[data-id]:hover,
+    tr.is-selected {
+      background: rgba(181, 139, 67, 0.12);
+    }
+
+    .empty {
+      padding: 34px 18px;
+      color: var(--muted);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .detail-panel {
+      position: sticky;
+      top: 18px;
+      padding: 22px;
+      box-shadow: 0 14px 34px rgba(30, 24, 18, 0.08);
+    }
+
+    .detail-title {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.35rem;
+    }
+
+    .detail-meta {
+      margin: 6px 0 18px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .detail-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(221, 211, 194, 0.72);
+    }
+
+    .detail-label {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .detail-value {
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .detail-actions {
+      justify-content: flex-end;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 920px) {
+      .stats,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-panel {
+        position: static;
+      }
+
+      .records {
+        min-width: 760px;
+      }
+
+      .table-panel {
+        overflow-x: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 18px 14px 34px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .login-panel,
+      .toolbar,
+      .detail-panel {
+        padding: 18px;
+      }
+
+      .detail-row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="eyebrow">JIUGONG ADMIN</div>
+          <h1>九宮門生登記後台</h1>
+        </div>
+        <button class="button secondary" type="button" id="logoutButton" hidden>登出</button>
+      </header>
+
+      <section class="panel login-panel" id="loginPanel">
+        <h2 class="login-title">老闆登入</h2>
+        <p class="muted">輸入後台密碼後，就能查看所有填表資料。</p>
+
+        <form id="loginForm">
+          <div class="field">
+            <label for="password">後台密碼</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required>
+          </div>
+          <div class="login-actions">
+            <button class="button primary" type="submit" id="loginButton">登入後台</button>
+          </div>
+          <div class="status error" id="loginStatus" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <main id="dashboard" hidden>
+        <section class="stats" aria-label="資料統計">
+          <div class="stat">
+            <div class="stat-label">總登記筆數</div>
+            <div class="stat-value" id="totalCount">0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">目前列表</div>
+            <div class="stat-value" id="visibleCount">0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">最近送出</div>
+            <div class="stat-value" id="latestDate">尚無資料</div>
+          </div>
+        </section>
+
+        <section class="panel toolbar" aria-label="資料工具列">
+          <input class="search" id="searchInput" type="search" placeholder="搜尋姓名、電話、Email、Line ID、引薦人">
+          <div class="toolbar-actions">
+            <button class="button secondary" type="button" id="refreshButton">重新整理</button>
+            <button class="button primary" type="button" id="exportButton">匯出 CSV</button>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <div class="panel table-panel">
+            <table class="records" aria-label="登記資料列表">
+              <thead>
+                <tr>
+                  <th>送出時間</th>
+                  <th>姓名</th>
+                  <th>電話</th>
+                  <th>Line ID</th>
+                  <th>引薦人</th>
+                </tr>
+              </thead>
+              <tbody id="recordsBody"></tbody>
+            </table>
+            <div class="empty" id="emptyState" hidden>目前沒有資料。</div>
+          </div>
+
+          <aside class="detail-panel" aria-label="完整資料">
+            <h2 class="detail-title" id="detailTitle">尚未選取資料</h2>
+            <p class="detail-meta" id="detailMeta">點選左側任一筆資料，即可查看完整內容。</p>
+            <div class="detail-list" id="detailList"></div>
+            <div class="detail-actions">
+              <button class="button secondary" type="button" id="copyButton" disabled>複製這筆資料</button>
+            </div>
+          </aside>
+        </section>
+
+        <div class="status info" id="dashboardStatus" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const DETAIL_FIELDS = [
+      "送出編號",
+      "後台收到時間",
+      "瀏覽器送出時間",
+      "門生姓名（中文）",
+      "出生年月日",
+      "性別",
+      "婚姻狀況",
+      "國籍",
+      "現居國家／地區",
+      "永久戶籍地址",
+      "通訊地址",
+      "行動電話",
+      "電子郵件",
+      "Line ID",
+      "配偶姓名（中文）",
+      "配偶出生年月日",
+      "配偶出生地",
+      "是否曾學習九宮課程",
+      "曾學習哪些九宮課程",
+      "如何認識九宮",
+      "引薦人姓名",
+      "目前職業或職稱",
+      "專業技能或特長",
+      "語言能力",
+      "海外發展意願",
+      "海外可配合地區",
+      "入門動機",
+      "確認聲明",
+      "個資同意",
+      "頁面網址"
+    ];
+
+    const state = {
+      submissions: [],
+      selectedId: null,
+      lastKeyword: ""
+    };
+
+    const loginPanel = document.getElementById("loginPanel");
+    const dashboard = document.getElementById("dashboard");
+    const loginForm = document.getElementById("loginForm");
+    const loginButton = document.getElementById("loginButton");
+    const loginStatus = document.getElementById("loginStatus");
+    const logoutButton = document.getElementById("logoutButton");
+    const recordsBody = document.getElementById("recordsBody");
+    const emptyState = document.getElementById("emptyState");
+    const dashboardStatus = document.getElementById("dashboardStatus");
+    const searchInput = document.getElementById("searchInput");
+    const refreshButton = document.getElementById("refreshButton");
+    const exportButton = document.getElementById("exportButton");
+    const copyButton = document.getElementById("copyButton");
+    const totalCount = document.getElementById("totalCount");
+    const visibleCount = document.getElementById("visibleCount");
+    const latestDate = document.getElementById("latestDate");
+    const detailTitle = document.getElementById("detailTitle");
+    const detailMeta = document.getElementById("detailMeta");
+    const detailList = document.getElementById("detailList");
+
+    async function checkSession() {
+      try {
+        const result = await apiGet("/api/session");
+        if (result.authenticated) {
+          showDashboard();
+          await loadSubmissions();
+        } else {
+          showLogin();
+        }
+      } catch {
+        showLogin("後台尚未啟用。請先完成 Cloudflare Pages 與 D1 資料庫設定。");
+      }
+    }
+
+    async function login(event) {
+      event.preventDefault();
+      loginButton.disabled = true;
+      loginStatus.classList.remove("is-visible");
+
+      try {
+        await apiPost("/api/login", {
+          password: document.getElementById("password").value
+        });
+        showDashboard();
+        await loadSubmissions();
+      } catch (error) {
+        showLogin(error.message || "登入失敗，請確認密碼。");
+      } finally {
+        loginButton.disabled = false;
+      }
+    }
+
+    async function logout() {
+      await apiPost("/api/logout", {});
+      state.submissions = [];
+      state.selectedId = null;
+      showLogin();
+    }
+
+    async function loadSubmissions() {
+      setDashboardStatus("正在讀取資料。");
+      const keyword = searchInput.value.trim();
+      const query = keyword ? `?q=${encodeURIComponent(keyword)}` : "";
+      const result = await apiGet(`/api/submissions${query}`);
+
+      state.submissions = result.submissions || [];
+      state.lastKeyword = keyword;
+      if (!state.submissions.some((item) => item.id === state.selectedId)) {
+        state.selectedId = state.submissions[0] ? state.submissions[0].id : null;
+      }
+
+      totalCount.textContent = String(result.total || 0);
+      visibleCount.textContent = String(state.submissions.length);
+      latestDate.textContent = state.submissions[0] ? formatDate(state.submissions[0].createdAt, true) : "尚無資料";
+      renderRecords();
+      renderDetail();
+      setDashboardStatus("");
+    }
+
+    function renderRecords() {
+      recordsBody.innerHTML = state.submissions.map((item) => `
+        <tr data-id="${escapeHtml(item.id)}" class="${item.id === state.selectedId ? "is-selected" : ""}">
+          <td>${escapeHtml(formatDate(item.createdAt))}</td>
+          <td>${escapeHtml(item.studentName || "未填寫")}</td>
+          <td>${escapeHtml(item.mobilePhone || "未填寫")}</td>
+          <td>${escapeHtml(item.lineId || "未填寫")}</td>
+          <td>${escapeHtml(item.referrerName || "未填寫")}</td>
+        </tr>
+      `).join("");
+      emptyState.hidden = state.submissions.length > 0;
+    }
+
+    function renderDetail() {
+      const selected = state.submissions.find((item) => item.id === state.selectedId);
+      copyButton.disabled = !selected;
+
+      if (!selected) {
+        detailTitle.textContent = "尚未選取資料";
+        detailMeta.textContent = "點選左側任一筆資料，即可查看完整內容。";
+        detailList.innerHTML = "";
+        return;
+      }
+
+      const payload = selected.payload || {};
+      detailTitle.textContent = selected.studentName || "未填寫姓名";
+      detailMeta.textContent = `${formatDate(selected.createdAt, true)}｜${selected.id}`;
+      detailList.innerHTML = DETAIL_FIELDS.map((field) => `
+        <div class="detail-row">
+          <div class="detail-label">${escapeHtml(field)}</div>
+          <div class="detail-value">${escapeHtml(payload[field] || "未填寫")}</div>
+        </div>
+      `).join("");
+    }
+
+    function exportCsv() {
+      if (state.submissions.length === 0) {
+        setDashboardStatus("目前沒有資料可以匯出。");
+        return;
+      }
+
+      const headers = DETAIL_FIELDS;
+      const rows = state.submissions.map((item) => {
+        const payload = item.payload || {};
+        return headers.map((field) => csvCell(payload[field] || ""));
+      });
+      const csv = "\uFEFF" + [
+        headers.map(csvCell).join(","),
+        ...rows.map((row) => row.join(","))
+      ].join("\n");
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `jiugong-submissions-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    async function copySelected() {
+      const selected = state.submissions.find((item) => item.id === state.selectedId);
+      if (!selected) return;
+
+      const payload = selected.payload || {};
+      const text = DETAIL_FIELDS.map((field) => `${field}：${payload[field] || "未填寫"}`).join("\n");
+      await navigator.clipboard.writeText(text);
+      setDashboardStatus("已複製這筆完整資料。");
+    }
+
+    function showLogin(message = "") {
+      loginPanel.hidden = false;
+      dashboard.hidden = true;
+      logoutButton.hidden = true;
+      if (message) {
+        loginStatus.textContent = message;
+        loginStatus.classList.add("is-visible");
+      } else {
+        loginStatus.classList.remove("is-visible");
+      }
+    }
+
+    function showDashboard() {
+      loginPanel.hidden = true;
+      dashboard.hidden = false;
+      logoutButton.hidden = false;
+    }
+
+    function setDashboardStatus(message) {
+      dashboardStatus.textContent = message;
+      dashboardStatus.classList.toggle("is-visible", Boolean(message));
+    }
+
+    async function apiGet(path) {
+      const response = await fetch(path, {
+        credentials: "include",
+        headers: { accept: "application/json" }
+      });
+      return handleApiResponse(response);
+    }
+
+    async function apiPost(path, body) {
+      const response = await fetch(path, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+      return handleApiResponse(response);
+    }
+
+    async function handleApiResponse(response) {
+      let result = {};
+      try {
+        result = await response.json();
+      } catch {
+        result = {};
+      }
+      if (!response.ok || result.ok === false) {
+        throw new Error(result.message || "後台連線失敗。");
+      }
+      return result;
+    }
+
+    function formatDate(value, withTimeZone = false) {
+      if (!value) return "未填寫";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value;
+      const text = new Intl.DateTimeFormat("zh-TW", {
+        timeZone: "Asia/Taipei",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(date);
+      return withTimeZone ? `${text} 台北時間` : text;
+    }
+
+    function csvCell(value) {
+      const text = String(value);
+      const safeText = /^[\s]*[=+\-@]/.test(text) ? `'${text}` : text;
+      return `"${safeText.replace(/"/g, '""')}"`;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    loginForm.addEventListener("submit", login);
+    logoutButton.addEventListener("click", logout);
+    refreshButton.addEventListener("click", loadSubmissions);
+    exportButton.addEventListener("click", exportCsv);
+    copyButton.addEventListener("click", copySelected);
+
+    recordsBody.addEventListener("click", (event) => {
+      const row = event.target.closest("tr[data-id]");
+      if (!row) return;
+      state.selectedId = row.dataset.id;
+      renderRecords();
+      renderDetail();
+    });
+
+    searchInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        loadSubmissions();
+      }
+    });
+
+    let searchTimer;
+    searchInput.addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(loadSubmissions, 400);
+    });
+
+    checkSession();
+  </script>
+</body>
+</html>

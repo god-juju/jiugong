@@ -1054,7 +1054,7 @@
                 </div>
 
                 <div class="status warning" id="setupStatus">
-                  目前尚未設定 Google 表單收件位置。請依照 `設定說明.md` 建立 Google 表單，並把表單送出網址與欄位代碼貼到本檔案。
+                  目前尚未設定資料收件位置。請先完成 Cloudflare 後台設定，或確認 Google 表單備援設定仍可使用。
                 </div>
                 <div class="status info" id="submitStatus" role="status" aria-live="polite"></div>
               </section>
@@ -1070,12 +1070,13 @@
   </div>
 
   <script>
+    const DATABASE_API_URL = "/api/submit";
+    const ENABLE_GOOGLE_FORM_FALLBACK = true;
+
     /*
-      設定方式：
-      1. 先照「設定說明.md」建立 Google 表單。
-      2. 把 Google 表單送出網址貼到 GOOGLE_FORM_ACTION_URL。
-      3. 把各欄位的 entry.xxxxx 代碼貼到 GOOGLE_FORM_FIELDS。
-      4. 最少需要設定：門生姓名、行動電話、電子郵件、Line ID、完整資料備份。
+      Google 表單現在是備援收件方式。
+      新的正式收件方式是 Cloudflare Pages + D1 資料庫，設定方式請看「後台設定.md」。
+      不要隨意改下面的 Google 表單網址與 entry 代碼，避免備援送出失效。
     */
     const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfFJzhqjmfbtlmODl7tq2BkfgByg8k4YYpL_agKBUvY509mEw/formResponse";
     const GOOGLE_FORM_FIELDS = {
@@ -1107,7 +1108,7 @@
 
     let currentSection = 0;
 
-    setupStatus.classList.toggle("is-visible", !isGoogleFormsConfigured());
+    setupStatus.classList.toggle("is-visible", !isDatabaseBackendConfigured() && !isGoogleFormsConfigured());
 
     function isMarried() {
       return getRadioValue("婚姻狀況") === "已婚";
@@ -1423,6 +1424,10 @@
       return hasAction && hasAnyField;
     }
 
+    function isDatabaseBackendConfigured() {
+      return DATABASE_API_URL.trim().startsWith("/api/");
+    }
+
     function formatFullPayload(payload) {
       return Object.entries(payload)
         .filter(([key]) => key !== "完整資料備份")
@@ -1459,6 +1464,32 @@
       googleForm.submit();
     }
 
+    async function submitToDatabase(payload) {
+      const response = await fetch(DATABASE_API_URL, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      let result = {};
+      try {
+        result = await response.json();
+      } catch {
+        result = {};
+      }
+
+      if (!response.ok || result.ok !== true) {
+        const error = new Error(result.message || "資料庫送出失敗。");
+        error.status = response.status;
+        throw error;
+      }
+
+      return result;
+    }
+
     form.addEventListener("click", (event) => {
       if (event.target.matches("[data-next]")) goNext();
       if (event.target.matches("[data-prev]")) goPrev();
@@ -1481,7 +1512,7 @@
 
       if (!validateSection(currentSection)) return;
 
-      if (!isGoogleFormsConfigured()) {
+      if (!isDatabaseBackendConfigured() && !isGoogleFormsConfigured()) {
         setupStatus.classList.add("is-visible");
         setupStatus.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
@@ -1491,6 +1522,38 @@
       submitButton.disabled = true;
       submitStatus.className = "status info is-visible";
       submitStatus.textContent = "正在送出資料，請稍候。";
+
+      try {
+        if (isDatabaseBackendConfigured()) {
+          const result = await submitToDatabase(payload);
+          submitStatus.className = "status success is-visible";
+          submitStatus.textContent = `資料已送出成功。送出編號：${result.id || payload["送出編號"]}。宗門負責人將於收到登記後聯繫您。`;
+          submitStatus.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+      } catch (error) {
+        if (error.status === 409) {
+          submitStatus.className = "status success is-visible";
+          submitStatus.textContent = error.message || "這筆資料已經送出過，請不要重複送出。";
+          submitStatus.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+
+        if (error.status && error.status < 500) {
+          submitButton.disabled = false;
+          submitStatus.className = "status warning is-visible";
+          submitStatus.textContent = error.message || "資料內容需要修正，請檢查後再送出。";
+          submitStatus.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+
+        if (!ENABLE_GOOGLE_FORM_FALLBACK || !isGoogleFormsConfigured()) {
+          submitButton.disabled = false;
+          submitStatus.className = "status warning is-visible";
+          submitStatus.textContent = error.message || "資料送出失敗，請稍後再試。";
+          return;
+        }
+      }
 
       submitStatus.className = "status info is-visible";
       submitStatus.textContent = `正在送出資料。送出編號：${payload["送出編號"]}。接下來會轉到 Google 完成頁，看到「已記錄你的回覆」才算完成。`;

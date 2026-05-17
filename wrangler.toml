@@ -1,0 +1,8 @@
+name = "jiugong"
+compatibility_date = "2026-05-17"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "jiugong-db"
+database_id = "472628d4-3edf-4b0f-b250-42b162e3cecc"
