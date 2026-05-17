@@ -170,6 +170,11 @@
       margin-top: 24px;
     }
 
+    .hero-action {
+      width: fit-content;
+      margin-top: 22px;
+    }
+
     .pill {
       display: inline-flex;
       align-items: center;
@@ -663,7 +668,41 @@
         padding: 18px 12px 36px;
       }
 
-      .hero,
+      .hero {
+        gap: 16px;
+        padding: 20px 16px;
+      }
+
+      .hero::before {
+        inset: 10px;
+      }
+
+      .brand-mark {
+        width: 82px;
+        padding: 8px;
+      }
+
+      .hero-lead {
+        margin-top: 12px;
+        font-size: 0.95rem;
+      }
+
+      .hero-meta {
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .pill {
+        min-height: 34px;
+        padding: 6px 10px;
+        font-size: 0.86rem;
+      }
+
+      .hero-action {
+        width: 100%;
+        margin-top: 16px;
+      }
+
       .form-section {
         padding: 22px 16px;
       }
@@ -673,8 +712,27 @@
         grid-template-columns: 1fr;
       }
 
+      .progress-panel {
+        padding: 16px;
+      }
+
       .steps {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .step {
+        grid-template-columns: 30px 1fr;
+        gap: 8px;
+        padding: 8px;
+      }
+
+      .step-number {
+        width: 30px;
+        height: 30px;
+      }
+
+      .step-name {
+        font-size: 0.88rem;
       }
 
       .choice-list {
@@ -686,7 +744,11 @@
       }
 
       .actions {
-        flex-direction: column-reverse;
+        flex-direction: column;
+      }
+
+      .actions > span:empty {
+        display: none;
       }
 
       .button {
@@ -713,6 +775,7 @@
             <span class="pill">共五個部分</span>
             <span class="pill">資料僅供宗門內部使用</span>
           </div>
+          <a class="button primary hero-action" href="#formStart">開始填寫</a>
         </div>
       </header>
 
@@ -754,7 +817,7 @@
             請據實填寫。所有資料依《個人資料保護法》規定，僅供九宮門內部使用，不對外提供或販售。
           </div>
 
-          <section class="form-panel" aria-label="入門意願登記表">
+          <section class="form-panel" id="formStart" aria-label="入門意願登記表">
             <form id="entranceForm" novalidate>
               <section class="form-section is-active" data-section="0" aria-labelledby="section1Title">
                 <p class="section-kicker">Part One</p>
@@ -1125,7 +1188,14 @@
         .map((item) => item.index);
     }
 
-    function setSection(index) {
+    function scrollToCurrentSection() {
+      const activeSection = sections[currentSection];
+      if (!activeSection) return;
+      activeSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function setSection(index, options = {}) {
+      const shouldScroll = options.scroll === true;
       const available = visibleSectionIndexes();
       if (!available.includes(index)) {
         index = available.find((item) => item > index) ?? available[available.length - 1];
@@ -1155,7 +1225,9 @@
         renderSummary();
       }
 
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (shouldScroll) {
+        scrollToCurrentSection();
+      }
     }
 
     function goNext() {
@@ -1163,14 +1235,14 @@
       const available = visibleSectionIndexes();
       const currentIndex = available.indexOf(currentSection);
       const next = available[currentIndex + 1];
-      if (typeof next === "number") setSection(next);
+      if (typeof next === "number") setSection(next, { scroll: true });
     }
 
     function goPrev() {
       const available = visibleSectionIndexes();
       const currentIndex = available.indexOf(currentSection);
       const prev = available[currentIndex - 1];
-      if (typeof prev === "number") setSection(prev);
+      if (typeof prev === "number") setSection(prev, { scroll: true });
     }
 
     function getRadioValue(name) {
